@@ -1,0 +1,36 @@
+{% if cookie == "surekli" %}
+<script type="text/javascript">
+alert("{{ bildirim_text }}")
+</script>
+{%elseif cookie == "tek"%}
+<script type="text/javascript">
+function getCookie(cname) {
+    var name = cname + "=";
+    var decodedCookie = decodeURIComponent(document.cookie);
+    var ca = decodedCookie.split(';');
+    for (var i = 0; i < ca.length; i++) {
+      var c = ca[i];
+      while (c.charAt(0) == ' ') {
+        c = c.substring(1);
+      }
+      if (c.indexOf(name) == 0) {
+        return c.substring(name.length, c.length);
+      }
+    }
+    return "";
+  }
+  function setCookie(cname, cvalue, exdays) {
+	var d = new Date();
+	d.setTime(d.getTime() + (exdays*24*60*60*1000));
+	var expires = "expires="+ d.toUTCString();
+	document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+}
+
+  if (confirm("{{ bildirim_text }}")) {
+     setCookie("bildirim", "bitti", 365);
+  }else {
+setCookie("bildirim", "bitti", 365);
+  }
+</script>
+
+{%endif%}
